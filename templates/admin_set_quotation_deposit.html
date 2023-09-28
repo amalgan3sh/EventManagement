@@ -1,0 +1,42 @@
+{% include "admin_header.html" %}
+<center>
+	<form method="post">
+	<h1 style="color: brown;"><b>Set Quotation Deposit</b></h1>
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Project Name</th>
+			<td><input type="text" name="pname" value="{{data['pname']}}" readonly>
+		</tr>
+		<tr>
+			<th>Amount</th>
+			<td><input type="text" name="amount" pattern="[0-9]{0,30}" required></td>
+		</tr>
+		<tr>
+			
+			<td colspan="2" align="center"><input type="submit" name="submit"></td>
+		</tr>
+	</table>
+	<h1 style="color: brown;"><b>Quotation Deposit Details</b></h1>
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Sl No</th>
+			<th>Project name</th>
+			<th>Amount</th>
+			<!-- <th>Deposit Date</th>
+			<th>Deposit Status</th> -->
+		</tr>
+		{% for row in data['deposit'] %}
+		<tr>
+			<td>{{loop.index}}</td>
+			<td>{{row['projectname']}}</td>
+			<td>{{row['quotation']}}</td>
+			<!-- <td>{{row['deposit_date']}}</td>
+
+			<td>{{row['deposit_status']}}</td> -->
+		</tr>
+		{% endfor %}
+	</table>
+	</form>
+
+</center>
+{% include "footer.html" %}

@@ -1,0 +1,26 @@
+{% include "customer_header.html" %}
+<!-- header start -->
+            <header id="header" class="header-wrapper home-parallax home-fade">
+                <div class="header-overlay"></div>
+                <div class="header-wrapper-inner">
+                    <div class="container">
+
+                        <div class="welcome-speech">
+<center>
+	<h1 style="color: brown;"><b>Quotation</b></h1>
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Sl No</th>
+			<th>Amount</th>
+			<th></th>
+		</tr>
+		{% for row in data['quotation'] %}
+		<tr>
+			<td>{{loop.index}}</td>
+			<td>{{row['quotation']}}</td>
+			<td><a style="color: magenta;" href="customer_make_payment?pid={{row['project_id']}}&amount={{row['quotation']}}">Make Payment</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+</center>
+{% include "footer.html" %}

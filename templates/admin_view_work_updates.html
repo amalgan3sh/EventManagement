@@ -1,0 +1,27 @@
+{% include "admin_header.html" %}
+<center>
+	<h1 style="color: brown;"><b>Work Updates</b></h1>
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Sl No</th>
+			<th>Project Name</th>
+			<th>Staff Assigned</th>
+			<th>Date</th>
+			<th>Status</th>
+		</tr>
+
+
+		{% for row in data['work'] %}
+		<tr>
+			<td>{{loop.index}}</td>
+			<td>{{row['projectname']}}</td>
+			<td>{{row['name']}}</td>
+			<td>{{row['a_date']}}</td>
+			<td>{{row['a_status']}}</td>
+			<td><a style="color: magenta" href="?action=confirm&pid={{row['project_id']}}">confirm delivery</a></td>
+		
+		</tr>
+		{% endfor %}
+	</table>
+</center>
+{% include "footer.html" %}

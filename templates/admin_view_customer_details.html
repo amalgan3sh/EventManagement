@@ -1,0 +1,32 @@
+{% include "admin_header.html" %}
+<center>
+	<form>
+		<h1 style="color: brown;"><b>Customer Details</b></h1>
+		<table class="table" style="width: 500px;">
+			<tr>
+				<th>Sl No</th>
+				<th>Name</th>
+				<th>Phone</th>
+				<th>Email</th>
+				<th>House Name</th>
+				<th>Place</th>
+				<th>Pincode</th>
+				<th>Image</th>
+
+			</tr>
+			{% for row in data['customer'] %}
+			<tr>
+				<td>{{loop.index}}</td>
+				<td>{{row['name']}}</td>
+				<td>{{row['phone']}}</td>
+				<td>{{row['email']}}</td>
+				<td>{{row['house_name']}}</td>
+				<td>{{row['place']}}</td>
+				<td>{{row['pincode']}}</td>
+				<td><img src="/{{row['Photo']}}" height="80px" width="80px"></td>
+			</tr>
+			{% endfor %}
+		</table>
+	</form>
+</center>
+{% include "footer.html" %}

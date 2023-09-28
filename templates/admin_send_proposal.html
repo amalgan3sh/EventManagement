@@ -1,0 +1,41 @@
+{% include "admin_header.html" %}
+<center>
+	<form method="post">
+		<h1 style="color: brown;"><b>Send proposal</b></h1>
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Projectname</th>
+			<td><input type="text" name="project" value="{{data['pname']}}" readonly></td>
+		</tr>
+		<tr>
+			<th>Amount</th>
+			<td><input type="text" name="amount" pattern="[0-9]{0,30}" required></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><input type="submit" name="submit" value="submit"></td>
+		</tr>
+	</table>
+	
+	<h1 style="color: brown;"><b>View Proposals</b></h1>
+
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Sl NO</th>
+			<th>Project Name</th>
+			<th>Amount</th>
+			<th>Date</th>
+			<td>Status</td>
+		</tr>
+		{% for row in data['proposal'] %}
+		<tr>
+			<td>{{loop.index}}</td>
+			<td>{{row['projectname']}}</td>
+			<td>{{row['amount']}}</td>
+			<td>{{row['date']}}</td>
+			<td>{{row['status']}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	</form>
+</center>
+{% include "footer.html" %}

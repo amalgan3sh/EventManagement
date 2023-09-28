@@ -1,0 +1,81 @@
+{% include "admin_header.html" %}
+<center>
+	<form method="post">
+		{% if data['updatess'] %}
+	<h1 style="color: brown;"><b>Update Assigned Project</b></h1>
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Project Name</th>
+			<td><input type="text" name="pname" value="{{data['pname']}}" pattern="[a-zA-Z\s]{0,30}" readonly>
+		</tr>
+		<tr>
+			<th>Staff</th>
+			<td>
+				<select name="staff">
+					<option value="{{data['updatess'][0]['staff_id']}}">{{data['updatess'][0]['name']}}</option>
+					{% for row in data['staff'] %}
+					<option value="{{row['staff_id']}}">{{row['name']}}</option>
+					{% endfor %}
+				
+				</select>
+			</td>
+		</tr>
+		<tr>
+			
+			<td colspan="2" align="center"><input type="submit" name="submits"></td>
+		</tr>
+	</table>
+	{% else %}
+	<h1 style="color: brown;"><b>Assign Project</b></h1>
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Project Name</th>
+			<td><input type="text" name="pname" value="{{data['pname']}}" pattern="[a-zA-Z\s]{0,30}" readonly>
+		</tr>
+		<tr>
+			<th>Staff</th>
+			<td>
+				<select name="staff">
+					<option>Choose</option>
+					{% for row in data['staff'] %}
+					<option value="{{row['staff_id']}}">{{row['name']}}</option>
+					{% endfor %}
+				
+				</select>
+			</td>
+		</tr>
+		<tr>
+			
+			<td colspan="2" align="center"><input type="submit" name="submit"></td>
+		</tr>
+	</table>
+	{% endif %}
+	<h1 style="color: brown;"><b>Assigned project</b></h1>
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Sl No</th>
+			<th>Project name</th>
+			<th>Staff</th>
+			<th>Date</th>
+			<th></th>
+			<th></th>
+			<!-- <th>Status</th> -->
+			
+		</tr>
+		{% for row in data['assign'] %}
+		<tr>
+			<td>{{loop.index}}</td>
+			<td>{{row['projectname']}}</td>
+			<td>{{row['name']}}</td>
+			<td>{{row['date']}}</td>
+			<td><a style="color: magenta" href="?action=update&aid={{row['assignproject_id']}}&pid={{data['pid']}}&pname={{data['pname']}}">Update</a></td>
+			<td><a style="color: magenta" href="?action=delete&aid={{row['assignproject_id']}}&pid={{data['pid']}}&pname={{data['pname']}}">Delete</a></td>
+			<!-- <td>{{row['status']}}</td> -->
+		
+		</tr>
+		{% endfor %}
+	</table>
+	</form>
+
+</center>
+{% include "footer.html" %}

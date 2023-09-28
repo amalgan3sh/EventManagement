@@ -1,0 +1,45 @@
+{% include "customer_header.html" %}
+
+        
+            <!-- header start -->
+            <header id="header" class="header-wrapper home-parallax home-fade">
+                <div class="header-overlay"></div>
+                <div class="header-wrapper-inner">
+                    <div class="container">
+
+                        <div class="welcome-speech">
+
+<center>
+	<h1 style="color: brown;"><b>My Projects</b></h1>
+	<table class="table" style="width: 500px">
+		<tr>
+			<th>Sl No</th>
+			<th>Subcategory</th>
+			<th>Project</th>
+			<th>Date</th>
+			<th>Status</th>
+			<th></th>
+		</tr>
+		{% for row in data['project'] %}
+		<tr>
+			<td>{{loop.index}}</td>
+			<td>{{row['subcategory']}}</td>
+			<td>{{row['projectname']}}</td>
+			<td>{{row['date']}}</td>
+			<td>{{row['status']}}</td>
+			<!-- {% if row['status']=='pending' %} -->
+			<td><a style="color: magenta;" href="customer_view_proposal?pid={{row['project_id']}}">View Proposal</a></td>
+			<td><a style="color: magenta;" href="customer_view_quotation?pid={{row['project_id']}}">View Quotation</a></td>
+			<td><a style="color: magenta" href="customer_view_assigned_staff?pid={{row['project_id']}}">View Assigned Staff</a></td>
+			<td><a style="color: magenta" href="customer_view_work_status?pid={{row['project_id']}}">View Work Status</a></td>
+			<td><a style="color: magenta" href="customer_view_quotation?pid={{row['project_id']}}">View Quotation</a></td>
+			<!-- {% endif %} -->
+
+		</tr>
+		{% endfor %}
+	</table>
+</center>
+
+
+
+{% include "footer.html" %}

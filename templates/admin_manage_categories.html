@@ -1,0 +1,55 @@
+{% include "admin_header.html" %}
+<center>
+	<form method="post">
+		{% if data['updatess'] %}
+		<h1 style="color: brown;"><b>Update Categories</b></h1>
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Category Name</th>
+			<td><input type="text" name="cname" value="{{data['updatess'][0]['category_name']}}" pattern="[a-zA-Z\s]" readonly></td>
+		</tr>
+		<tr>
+			<th>Category Description</th>
+			<td><input type="text" name="desc" value="{{data['updatess'][0]['category_description']}}" required readonly></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><input type="submit" name="submits" value="submit"></td>
+		</tr>
+		{% else %}
+	<h1 style="color: brown;"><b>Manage Categories</b></h1>
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Category Name</th>
+			<td><input type="text" name="cname"  required></td>
+		</tr>
+		<tr>
+			<th>Category Description</th>
+			<td><input type="text" name="desc" required></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><input type="submit" name="submit" value="submit"></td>
+		</tr>
+	</table>
+	{% endif %}
+	<h1 style="color: brown;"><b>Categories</b></h1>
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Sl No</th>
+			<th>Category Name</th>
+			<th>Category Description</th>
+
+		</tr>
+		{% for row in data['cat'] %}
+		<tr>
+			<td>{{loop.index}}</td>
+			<td>{{row['category_name']}}</td>
+			<td>{{row['category_description']}}</td>
+			<td><a style="color: magenta" href="?action=update&cid={{row['category_id']}}">Update</a></td>
+			<td><a style="color: magenta" href="?action=delete&cid={{row['category_id']}}">Delete</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+	</form>
+</center>
+
+{% include "footer.html" %}

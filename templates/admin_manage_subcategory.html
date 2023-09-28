@@ -1,0 +1,70 @@
+{% include "admin_header.html" %}
+<center>
+	<form method="post">
+		{% if data['updatess'] %}
+		<h1 style="color: brown;"><b>Update Subategories</b></h1>
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Category Name</th>
+			<td>
+				<select name="cat" required>
+					<option value="{{data['updatess'][0]['category_id']}}">{{data['updatess'][0]['category_name']}}</option>
+					{% for row in data['cat'] %}
+					<option value="{{row['category_id']}}">{{row['category_name']}}</option>
+					{% endfor %}
+				</select>
+		</td>
+		</tr>
+		<tr>
+			<th>subcategory</th>
+			<td><input type="text" name="sub" value="{{data['updatess'][0]['subcategory']}}" pattern="[a-zA-Z\s]{0,30}" required></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><input type="submit" name="submits" value="submit"></td>
+		</tr>
+		{% else %}
+	<h1 style="color: brown;"><b>Manage Subcategories</b></h1>
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Category Name</th>
+			<td>
+				<select name="cat" required>
+					<option>Choose</option>
+					{% for row in data['cat'] %}
+					<option value="{{row['category_id']}}">{{row['category_name']}}</option>
+					{% endfor %}
+				</select>
+		</td>
+		</tr>
+		<tr>
+			<th>Subcategory</th>
+			<td><input type="text" name="sub" pattern="[a-zA-Z\s]{0,30}" required></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><input type="submit" name="submit" value="submit"></td>
+		</tr>
+	</table>
+	{% endif %}
+	<h1 style="color: brown;"><b>subcategories</b></h1>
+
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Sl No</th>
+			<th>Category Name</th>
+			<th>Category Description</th>
+
+		</tr>
+		{% for row in data['subcat'] %}
+		<tr>
+			<td>{{loop.index}}</td>
+			<td>{{row['category_name']}}</td>
+			<td>{{row['subcategory']}}</td>
+			<td><a style="color: magenta" href="?action=update&sid={{row['subcategory_id']}}">Update</a></td>
+			<td><a style="color: magenta" href="?action=delete&sid={{row['subcategory_id']}}">Delete</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+	</form>
+</center>
+
+{% include "footer.html" %}

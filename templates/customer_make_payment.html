@@ -1,0 +1,81 @@
+{% include "customer_header.html" %}
+<!-- header start -->
+            <header id="header" class="header-wrapper home-parallax home-fade">
+                <div class="header-overlay"></div>
+                <div class="header-wrapper-inner">
+                    <div class="container">
+
+                        <div class="welcome-speech">
+
+<style type="text/css">
+td{background-color: transparent;font-weight: 2px;color: black}
+hr{border-color: orange}
+#b{
+	border: 1px solid grey; 
+	padding: 10px;
+}
+</style>
+
+<div align="center"> 
+	<br>
+	<br>
+	<br>
+	<form method="post">
+		<h1 style="color: brown"><b> Payment</b> </h1>
+		<br>
+		<br>
+		<br> 
+		<table style="width: 400px; border-radius: 5px;" class="table table-borderless" id="b"> 
+			<tr> 
+				<td>PAYMENT DETAILS</td> 
+				<td><img src="/static/uploads/credit_card.png" style="width:100%"></td>
+
+			</tr>
+			<tr> 
+				<td colspan="2"> <small>CARD NUMBER</small><br> 
+					<input type="text" placeholder="Enter a valid card number"  class="form-control" required pattern="[0-9]{16}" title="Enter 16 digit Card number">
+
+				</td> 
+			</tr>
+			<tr> 
+				
+				<td > <small>CVV</small><br> 
+					<input type="text" placeholder="CVV"  class="form-control" required pattern="[0-9]{3}" title="Enter 3 digit CV number">
+				</td> 
+				<td> <small>EXPIRATION DATE</small><br> 
+					<input type="text" placeholder="MM/YY"  class="form-control" required pattern="[0-9,/]{5}" title="Enter month and year"> 
+				</td>
+
+				
+			</tr>
+			<tr> 
+				<td colspan="2"> <small>CARD HOLDER</small><br> 
+					<input type="text" placeholder="Name on card"  class="form-control" data-valid='only-text' required > </td>
+				</tr>
+
+				<tr> {% if data['amount'] %}
+					<td colspan="2"> <b><small>Amount : </small>
+					<input type="hidden" name="amount" value="{{data['amount']}}">{{data['amount']}}</b>
+					</td>
+				
+				</tr>
+				{% endif %}
+			
+
+				<tr> 
+					<td colspan="2"> 
+						<input type="submit" value="PAY"  class="btn btn-success" style="width: 100%" name="pay"> </td>
+					</tr>
+				</table>
+			</div>
+		</form>
+
+
+
+
+
+
+
+
+
+{% include "footer.html"  %}
