@@ -111,3 +111,41 @@ def customer_make_payment():
 
 	return render_template('customer_make_payment.html',data=data)
 
+@customer.route('/customer_give_feedback', methods=['get', 'post'])
+def customer_give_feedback():
+    data = {}
+    q = "SELECT * FROM `feedback`"
+    data['feedback'] = select(q)
+
+    if 'action' in request.args:
+        action = request.args['action']
+        fid = request.args['fid']
+    else:
+        action = None
+    if action == 'update':
+        q = "SELECT * FROM `feedback` WHERE `feedback_id`='%s'" % (fid)
+        data['update_feedback'] = select(q)
+
+    if action == 'delete':
+        q = "DELETE FROM `feedback` WHERE `feedback_id`='%s'" % (fid)
+        delete(q)
+        return redirect(url_for('customer.customer_give_feedback'))
+
+    if 'submit' in request.form:
+        ftitle = request.form['ftitle']
+        q = "INSERT INTO `feedback`(`feedback`,`datetime`) VALUES ('%s', 'curdate()')" % (ftitle)
+        insert(q)
+        flash('Successfully inserted feedback...')
+        return redirect(url_for('customer.customer_give_feedback'))
+
+    if 'submits' in request.form:
+        ftitle = request.form['ftitle']
+        fdesc = request.form['fdesc']
+        q = "UPDATE `feedback` SET `feedback_title`='%s', `feedback_description`='%s' WHERE `feedback_id`='%s'" % (ftitle, fdesc, fid)
+        update(q)
+        flash('Successfully updated feedback...')
+        return redirect(url_for('customer.customer_give_feedback'))
+
+    return render_template('customer_give_feedback.html', data=data)
+
+

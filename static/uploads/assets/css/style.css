@@ -659,15 +659,15 @@ section {
 /*------------------------------  header -----------------------------------*/
 
 #header {
-    background: url(../img/slider1.jpg) no-repeat center center;
+    background: url(../img/pexels-fu-zhichao-587741.jpg) no-repeat center center;
     background-attachment: auto;
-    background-size: auto;
+    background-size: cover;
     display: table;
     height: calc(100vh - 72px);
     width: 100%;
     position: relative;
     z-index: 1;
-    overflow-x: hidden;
+    overflow: hidden; /* Add this line to prevent overflow */
 }
 
 .header-wrapper .header-overlay {

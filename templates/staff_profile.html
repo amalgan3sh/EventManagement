@@ -1,0 +1,55 @@
+{% include "staff_header.html" %}
+<style>
+    .profile-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 50%;
+    }
+
+    .profile-info {
+        margin-top: 20px;
+    }
+
+    .profile-info h2 {
+        font-size: 24px;
+    }
+
+    .profile-info p {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .profile-actions {
+        margin-top: 20px;
+    }
+</style>
+
+<center>
+    <div class="profile-container">
+        <img class="profile-image" src="{{ data.staff.photo }}" alt="Staff Photo">
+        <h2>{{ data.staff.first_name }} {{ data.staff.last_name }}</h2>
+        <div class="profile-info">
+            <p><strong>First Name:</strong> {{ data.staff.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ data.staff.lastname }}</p>
+            <p><strong>House Name:</strong> {{ data.staff.house_name }}</p>
+            <p><strong>Place:</strong> {{ data.staff.place }}</p>
+            <p><strong>Pincode:</strong> {{ data.staff.pincode }}</p>
+            <p><strong>Phone:</strong> {{ data.staff.phone }}</p>
+            <p><strong>Email:</strong> {{ data.staff.email }}</p>
+        </div>
+        <div class="profile-actions">
+            <!-- Add any profile-related actions or buttons here -->
+        </div>
+    </div>
+</center>
+{% include "footer.html" %}

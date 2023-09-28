@@ -9,6 +9,24 @@ staff=Blueprint('staff',__name__)
 def staff_home():
 	return render_template('staff_home.html')
 
+@staff.route('/staff_profile')
+def staff_profile():
+    data = {}
+    staff_id = session.get('staff_id')  # Get staff_id from the session
+
+    if staff_id:
+        q = "SELECT * FROM staff WHERE `staff_id`='%s'" % staff_id
+        staff_data = select(q)
+
+        if staff_data:
+            data['staff'] = staff_data[0]  # Use [0] to access the first (and likely only) row
+            return render_template('staff_profile.html', data=data)
+        else:
+            return render_template('error.html', error_message='Staff data not found')
+    else:
+        return render_template('error.html', error_message='Staff ID not available in session')
+
+
 @staff.route('/staff_view_assigned_job')
 def staff_view_assigned_job():
 	data={}
@@ -16,6 +34,15 @@ def staff_view_assigned_job():
 	data['assign']=select(q)
 
 	return render_template('staff_view_assigned_job.html',data=data)
+
+@staff.route('/staff_view_feedback')
+def staff_view_feedback():
+	data={}
+	q="SELECT *,CONCAT(`first_name`,' ',`last_name`) AS customer_name FROM feedback INNER JOIN customer USING (customer_id) WHERE `staff_id`='%s'"%(session['staff_id'])
+	data['feedback']=select(q)
+
+	return render_template('staff_view_feedback.html',data=data)
+
 @staff.route('/staff_view_customer_details')
 def staff_view_customer_details():
 	data={}
