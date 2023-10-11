@@ -34,8 +34,10 @@
 		{% for row in data['feedback'] %}
 		<tr>
 			<td>{{ loop.index }}</td>
-			<td>{{ row['feedback'] }}</td>
-
+			<td>{{ row['feedback_description'] }}</td>
+			<td>
+            <a href="{{ url_for('customer.delete_feedback', feedback_id=row['feedback_id']) }}">Delete</a>
+        </td>
 		</tr>
 		{% endfor %}
 	</table>

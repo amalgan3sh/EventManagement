@@ -62,3 +62,26 @@ def staff_register():
 		flash('success...')
 		return redirect(url_for('public.login'))
 	return render_template('staff_register.html')
+
+@public.route('/public_customer_register',methods=['get','post'])
+def public_customer_register():
+	if 'submit' in request.form:
+		fname=request.form['fname']
+		lname=request.form['lname']
+		hname=request.form['hname']
+		place=request.form['place']
+		pin=request.form['pin']
+		phone=request.form['phone']
+		email=request.form['email']
+		image=request.files['image']
+		path="static/uploads/"+str(uuid.uuid4())+image.filename
+		image.save(path)
+		uname=request.form['email']
+		pwd=request.form['pwd']
+		q="INSERT INTO `login`(`username`,`password`,`usertype`) VALUES('%s','%s','customer')"%(uname,pwd)
+		insert(q)
+		q="INSERT INTO `customer`(`username`,`first_name`,`last_name`,`house_name`,`place`,`pincode`,`phone`,`email`,`photo`)VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s')"%(uname,fname,lname,hname,place,pin,phone,email,path)
+		insert(q)
+		flash('success...')
+		return redirect(url_for('public.login'))
+	return render_template('public_customer_register.html')
