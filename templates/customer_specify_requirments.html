@@ -6,49 +6,38 @@
                     <div class="container">
 
                         <div class="welcome-speech">
-                            <div class="container1">
+
+<div class="container1">
+
 <center>
 	<form method="post">
-		{% if data['update_feedback'] %}
-		<h1 style="color: brown;"><b>Update Feedback</b></h1>
-	<table class="table" style="width: 500px;">
-		<tr>
-			<th>Feedback Title</th>
-			<td><input type="text" name="ftitle" value="{{data['update_feedback'][0]['feedback_title']}}" pattern="[a-zA-Z\s]+" required readonly></td>
-		</tr>
 
-		<tr>
-			<td colspan="2" align="center"><input type="submit" name="submit" value="Submit"></td>
-		</tr>
-		{% else %}
-	<h1 style="color: brown;"><b>Manage Feedback</b></h1>
-	<table class="table" style="width: 500px;">
-		<tr>
-			<th>Feedback Title</th>
-			<td><input type="text" name="ftitle" required></td>
-		</tr>
-
-		<tr>
-			<td colspan="2" align="center"><input type="submit" name="submit" value="Submit"></td>
-		</tr>
-	</table>
-	{% endif %}
-	<h1 style="color: brown;"><b>Feedback</b></h1>
-	<table class="table" style="width: 500px;">
-		<tr>
-			<th>Sl No</th>
-			<th>Feedback Title</th>
-		</tr>
-		{% for row in data['feedback'] %}
-		<tr>
-			<td>{{ loop.index }}</td>
-			<td>{{ row['feedback_description'] }}</td>
-			<td>
-            <a  class="button delete-button" href="{{ url_for('customer.delete_feedback', feedback_id=row['feedback_id']) }}">Delete</a>
-        </td>
-		</tr>
-		{% endfor %}
-	</table>
+	<h1 style="color: brown;"><b>Specify your requirments</b></h1>
+        <table class="table">
+            <tr>
+                <th>Venue</th>
+                <td><input type="text" name="venue"></td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td><input type="date" name="date"></td>
+            </tr>
+            <tr>
+                <th>How many days are you planning your event?</th>
+                <td><input type="text" name="days"></td>
+            </tr>
+            <tr>
+                <th>Budget you expect</th>
+                <td><input type="text" name="budget"></td>
+            </tr>
+            <tr>
+                <th>Other requirments</th>
+                <td><input type="text" name="other"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="submit" value="Next"></td>
+            </tr>
+        </table>
 	</form>
 </center>
 </div>
@@ -89,4 +78,6 @@
 
 
 </style>
+
+
 {% include "footer.html" %}

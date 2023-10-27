@@ -144,4 +144,66 @@ def delete_feedback(feedback_id):
     # Redirect back to the customer_give_feedback page
     return redirect(url_for('customer.customer_give_feedback'))
 
+@customer.route('/customer_view_categories')
+def customer_view_categories():
+    data = {}
+    q = "SELECT * FROM `subcategory`"
+    data['categories'] = select(q)
+    return render_template('customer_view_categories.html', data=data)
+
+@customer.route('/customer_specify_requirments',methods=['get','post'])
+def customer_specify_requirments():
+
+    cid=session['customer_id']
+    if 'submit' in request.form:
+        subcategory_id = request.args['subcategory_id']
+        venue = request.form['venue']
+        date = request.form['date']
+        days = request.form['days']
+        budget = request.form['budget']
+        other = request.form['other']
+        q = "INSERT INTO `requirments`(`subcat_id`,`venue`,`date`,`days_required`,`budget`,`other`,`customer_id`)VALUE('%s','%s','%s','%s','%s','%s','%s')" % (subcategory_id,venue,date,days,budget,other,cid)
+        insert(q)
+        flash('Requirments added')
+        return redirect(url_for('customer.customer_view_event_planners'))
+
+    return render_template('customer_specify_requirments.html')
+
+@customer.route('/customer_view_event_planners')
+def customer_view_event_planners():
+    data = {}
+    q = "SELECT *,CONCAT(first_name,' ',lastname) staff_name FROM staff"
+    data['event_planners'] = select(q)
+    return render_template('customer_view_event_planners.html', data=data)
+
+@customer.route('/customer_confirm_requirements')
+def customer_confirm_requirements():
+    data = {}
+    q = "SELECT * FROM `requirments`"
+    data['requirments'] = select(q)
+    
+    staff_id = request.args.get('staff_id')
+    
+    if 'action' in request.args:
+        requirement_id = request.args.get('requirment_id')
+        action = request.args.get('action')
+    else:
+        action = None
+
+    if action == 'confirm':
+        q = "INSERT INTO `assigned_event` (`requirment_id`, `staff_id`, `customer_id`) VALUES ('%s', '%s', '%s')"%(requirement_id,'1',session['customer_id'])
+        insert(q)  # Assuming you have a function to insert data and use a tuple of values.
+        
+        flash('Event assigned to the staff', 'success')  # Display a success message
+
+    return render_template('customer_confirm_requirments.html', data=data)
+
+@customer.route('/customer_view_assigned_events')
+def customer_view_assigned_events():
+    data = {}
+    q = "SELECT *,CONCAT(first_name,' ',lastname) AS event_planner FROM `assigned_event` INNER JOIN requirments USING(requirment_id) INNER JOIN staff USING(staff_id)"
+    data['assigned_events'] = select(q)
+    return render_template('customer_view_assigned_events.html', data=data)
+
+
 

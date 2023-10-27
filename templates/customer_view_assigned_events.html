@@ -6,53 +6,37 @@
                     <div class="container">
 
                         <div class="welcome-speech">
-                            <div class="container1">
+                        	<div class="container1">
 <center>
-	<form method="post">
-		{% if data['update_feedback'] %}
-		<h1 style="color: brown;"><b>Update Feedback</b></h1>
-	<table class="table" style="width: 500px;">
-		<tr>
-			<th>Feedback Title</th>
-			<td><input type="text" name="ftitle" value="{{data['update_feedback'][0]['feedback_title']}}" pattern="[a-zA-Z\s]+" required readonly></td>
-		</tr>
-
-		<tr>
-			<td colspan="2" align="center"><input type="submit" name="submit" value="Submit"></td>
-		</tr>
-		{% else %}
-	<h1 style="color: brown;"><b>Manage Feedback</b></h1>
-	<table class="table" style="width: 500px;">
-		<tr>
-			<th>Feedback Title</th>
-			<td><input type="text" name="ftitle" required></td>
-		</tr>
-
-		<tr>
-			<td colspan="2" align="center"><input type="submit" name="submit" value="Submit"></td>
-		</tr>
-	</table>
-	{% endif %}
-	<h1 style="color: brown;"><b>Feedback</b></h1>
+	<h1 style="color: brown;"><b>ASSIGNED EVENTS</b></h1>
 	<table class="table" style="width: 500px;">
 		<tr>
 			<th>Sl No</th>
-			<th>Feedback Title</th>
+			<th>Event Planner</th>			
+			<th>Venue</th>
+			<th>Date</th>
+			<th>Days Required</th>		
+			<th>Budget</th>		
+			<th>Other</th>	
+			<th>Status</th>
 		</tr>
-		{% for row in data['feedback'] %}
+		{% for row in data['assigned_events'] %}
 		<tr>
-			<td>{{ loop.index }}</td>
-			<td>{{ row['feedback_description'] }}</td>
-			<td>
-            <a  class="button delete-button" href="{{ url_for('customer.delete_feedback', feedback_id=row['feedback_id']) }}">Delete</a>
-        </td>
+			<td>{{loop.index}}</td>
+			<td>{{row['event_planner']}}</td>
+			<td>{{row['venue']}}</td>
+			<td>{{row['date']}}</td>
+			<td>{{row['days_required']}}</td>
+			<td>{{row['budget']}}</td>
+			<td>{{row['other']}}</td>
+			<td>{{row['status']}}</td>
+			<td><a style="color: magenta;" href="customer_interact_with_staff?sid={{row['staff_id']}}">Chat</a></td>
 		</tr>
+
 		{% endfor %}
 	</table>
-	</form>
 </center>
 </div>
-
 <style type="text/css">
 /* Inside your CSS file (e.g., style.css) */
 .button {

@@ -6,52 +6,33 @@
                     <div class="container">
 
                         <div class="welcome-speech">
-                            <div class="container1">
+                        	<div class="container1">
 <center>
-	<form method="post">
-		{% if data['update_feedback'] %}
-		<h1 style="color: brown;"><b>Update Feedback</b></h1>
+	<h1 style="color: brown;"><b>Event Planners</b></h1>
 	<table class="table" style="width: 500px;">
 		<tr>
-			<th>Feedback Title</th>
-			<td><input type="text" name="ftitle" value="{{data['update_feedback'][0]['feedback_title']}}" pattern="[a-zA-Z\s]+" required readonly></td>
+			<th>Sl No</th>			
+			<th>Staff Name</th>
+			<th>Phone</th>
+			<th>Email</th>			
+			<th></th>
+		</tr>
+		{% for row in data['event_planners'] %}
+		<tr>
+			<td>{{loop.index}}</td>
+		
+			<td>{{row['staff_name']}}</td>
+			<td>{{row['phone']}}</td>
+			<td>{{row['email']}}</td>
+			<td><a  class="button update-button" href="customer_confirm_requirements?staff_id={{row['staff_id']}}">Assign event</a></td>
+
 		</tr>
 
-		<tr>
-			<td colspan="2" align="center"><input type="submit" name="submit" value="Submit"></td>
-		</tr>
-		{% else %}
-	<h1 style="color: brown;"><b>Manage Feedback</b></h1>
-	<table class="table" style="width: 500px;">
-		<tr>
-			<th>Feedback Title</th>
-			<td><input type="text" name="ftitle" required></td>
-		</tr>
-
-		<tr>
-			<td colspan="2" align="center"><input type="submit" name="submit" value="Submit"></td>
-		</tr>
-	</table>
-	{% endif %}
-	<h1 style="color: brown;"><b>Feedback</b></h1>
-	<table class="table" style="width: 500px;">
-		<tr>
-			<th>Sl No</th>
-			<th>Feedback Title</th>
-		</tr>
-		{% for row in data['feedback'] %}
-		<tr>
-			<td>{{ loop.index }}</td>
-			<td>{{ row['feedback_description'] }}</td>
-			<td>
-            <a  class="button delete-button" href="{{ url_for('customer.delete_feedback', feedback_id=row['feedback_id']) }}">Delete</a>
-        </td>
-		</tr>
 		{% endfor %}
 	</table>
-	</form>
 </center>
 </div>
+
 
 <style type="text/css">
 /* Inside your CSS file (e.g., style.css) */

@@ -1,30 +1,83 @@
 {% include "staff_header.html" %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+    }
+
+    .chat-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .chat-container table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .chat-container table tr td {
+        padding: 10px;
+    }
+
+    .message-row {
+        margin: 10px;
+    }
+
+    .message-staff {
+        text-align: right;
+        color: #008000; /* Green */
+    }
+
+    .message-user {
+        text-align: left;
+        color: #888888; /* Grey */
+    }
+
+    .message-input {
+        width: 80%;
+        padding: 5px;
+    }
+
+    .send-button {
+        background-color: #008000; /* Green */
+        color: #fff;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .send-button:hover {
+        background-color: #006600; /* Darker Green on hover */
+    }
+</style>
+
 <center>
-	<form method="post">
-	<div style="overflow-y: scroll; width: 500px; height: 500px" >
-	<table class="table" style="width: 100px;">
-		{% for row in data['chat'] %}
-		
-			{% if row['sendertype']=='staff'%}
-			<tr>
-				<div style="color: green;" align="right" >{{row['message']}}</div>
-			
-			</tr>
-			{% else %}
-			<tr>
-			<div style="color: grey;" align="left" >{{row['message']}}</div>
-			</tr>
-			{% endif %}
-		
-		{% endfor %}
-	</table>
-	</div>
-	<table>
-	<tr>
-		<th><input type="text" name="message" required></th>
-		<td><input type="submit" name="submit" value="SEND"></td>
-		</tr>
-	</table>
-	</form>
+    <div class="chat-container">
+    	<h1>CHAT ROOM</h1>
+        <table>
+            {% for row in data['chat'] %}
+                <tr class="message-row">
+                    {% if row['sendertype'] == 'staff' %}
+                        <td class="message-staff">{{ row['message'] }}</td>
+                    {% else %}
+                        <td class="message-user">{{ row['message'] }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+        <form method="post">
+            <div class="message-input">
+                <input type="text" name="message" required>
+            </div>
+            <div class="send-button">
+                <input type="submit" name="submit" value="SEND">
+            </div>
+        </form>
+    </div>
 </center>
 {% include "footer.html" %}

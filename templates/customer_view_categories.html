@@ -6,46 +6,24 @@
                     <div class="container">
 
                         <div class="welcome-speech">
-                            <div class="container1">
+
+<div class="container1">
 <center>
 	<form method="post">
-		{% if data['update_feedback'] %}
-		<h1 style="color: brown;"><b>Update Feedback</b></h1>
-	<table class="table" style="width: 500px;">
-		<tr>
-			<th>Feedback Title</th>
-			<td><input type="text" name="ftitle" value="{{data['update_feedback'][0]['feedback_title']}}" pattern="[a-zA-Z\s]+" required readonly></td>
-		</tr>
 
-		<tr>
-			<td colspan="2" align="center"><input type="submit" name="submit" value="Submit"></td>
-		</tr>
-		{% else %}
-	<h1 style="color: brown;"><b>Manage Feedback</b></h1>
-	<table class="table" style="width: 500px;">
-		<tr>
-			<th>Feedback Title</th>
-			<td><input type="text" name="ftitle" required></td>
-		</tr>
+	<h1 style="color: brown;"><b>subcategories</b></h1>
 
-		<tr>
-			<td colspan="2" align="center"><input type="submit" name="submit" value="Submit"></td>
-		</tr>
-	</table>
-	{% endif %}
-	<h1 style="color: brown;"><b>Feedback</b></h1>
 	<table class="table" style="width: 500px;">
 		<tr>
 			<th>Sl No</th>
-			<th>Feedback Title</th>
+			<th>Category Description</th>
+
 		</tr>
-		{% for row in data['feedback'] %}
+		{% for row in data['categories'] %}
 		<tr>
-			<td>{{ loop.index }}</td>
-			<td>{{ row['feedback_description'] }}</td>
-			<td>
-            <a  class="button delete-button" href="{{ url_for('customer.delete_feedback', feedback_id=row['feedback_id']) }}">Delete</a>
-        </td>
+			<td>{{loop.index}}</td>
+			<td>{{row['subcategory']}}</td>
+			<td><a style="color: magenta" href="customer_specify_requirments?subcategory_id={{row['subcategory_id']}}">Give requirments</a></td>
 		</tr>
 		{% endfor %}
 	</table>
@@ -89,4 +67,5 @@
 
 
 </style>
+
 {% include "footer.html" %}

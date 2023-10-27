@@ -454,4 +454,88 @@ def admin_project_report():
 
 	return render_template('admin_project_report.html',data=data)
 
+@admin.route('/admin_view_customer_new',methods=['get','post'])
+def admin_view_customer_new():
+	data={}
+	q="SELECT * FROM customer"
+	data['customer']=select(q)
+
+	if 'action' in request.args:
+		action=request.args['action']
+		customer_id=request.args['customer_id']
+	else:
+		action=None
+	if action=='delete':
+		q="DELETE FROM customer WHERE customer_id='%s'"%(customer_id)
+		update(q)
+		flash('Customer deleted')
+
+		return redirect(url_for('admin.admin_view_customer_new'))
+
+	return render_template('admin_view_customer_new.html',data=data)
+
+@admin.route('/admin_view_staff_new',methods=['get','post'])
+def admin_view_staff_new():
+	data={}
+	q="SELECT * FROM staff"
+	data['staff']=select(q)
+
+	if 'action' in request.args:
+		action=request.args['action']
+		staff_id=request.args['staff_id']
+	else:
+		action=None
+	if action=='delete':
+		q="DELETE FROM staff WHERE staff_id='%s'"%(staff_id)
+		update(q)
+		flash('Staff deleted')
+
+		return redirect(url_for('admin.admin_view_staff_new'))
+
+	return render_template('admin_view_staff_new.html',data=data)
+
+@admin.route('/admin_view_work_updates_new',methods=['get','post'])
+def admin_view_work_updates_new():
+	data={}
+	q="SELECT *,CONCAT(customer.first_name,' ',last_name) AS customer_name,CONCAT(staff.first_name,' ',lastname) AS staff_name FROM `assigned_event` INNER JOIN `requirments` USING (requirment_id) INNER JOIN staff USING(staff_id) INNER JOIN customer ON `assigned_event`.`customer_id`=`customer`.`customer_id`"
+	data['work_updates']=select(q)
+
+	# if 'action' in request.args:
+	# 	action=request.args['action']
+	# 	staff_id=request.args['staff_id']
+	# else:
+	# 	action=None
+	# if action=='delete':
+	# 	q="DELETE FROM staff WHERE staff_id='%s'"%(staff_id)
+	# 	update(q)
+	# 	flash('Staff deleted')
+
+	# 	return redirect(url_for('admin.admin_view_work_updates_new'))
+
+	return render_template('admin_view_work_updates_new.html',data=data)
+
+@admin.route('/admin_manage_staff_new',methods=['get','post'])
+def admin_manage_staff_new():
+	if 'submit' in request.form:
+		fname=request.form['fname']
+		lname=request.form['lname']
+		hname=request.form['hname']
+		place=request.form['place']
+		pin=request.form['pin']
+		phone=request.form['phone']
+		email=request.form['email']
+		image=request.files['image']
+		path="static/uploads/"+str(uuid.uuid4())+image.filename
+		image.save(path)
+
+		uname=request.form['email']
+		pwd=request.form['pwd']
+		q="INSERT INTO `login`(`username`,`password`,`usertype`) VALUES('%s','%s','staff')"%(uname,pwd)
+		insert(q)
+		q="INSERT INTO `staff`(`username`,`first_name`,`lastname`,`house_name`,`place`,`pincode`,`phone`,`email`,`photo`)VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s')"%(uname,fname,lname,hname,place,pin,phone,email,path)
+		insert(q)
+		flash('success...')
+		return redirect(url_for('admin.admin_manage_staff_new'))
+	return render_template('admin_manage_staff_new.html')
+
 

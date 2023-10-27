@@ -1,37 +1,125 @@
 {% include "customer_header.html" %}
 <!-- header start -->
-            <header id="header" class="header-wrapper home-parallax home-fade">
-                <div class="header-overlay"></div>
-                <div class="header-wrapper-inner">
-                    <div class="container">
+<header id="header" class="header-wrapper home-parallax home-fade">
+    <div class="header-overlay"></div>
+    <div class="header-wrapper-inner">
+        <div class="container">
+            <div class="welcome-speech">
+            	<div class="container1">
+                <center>
+                	<h1>CHAT ROOM</h1>
+                    <form method="post">
+                        <div style="overflow-y: scroll; width: 500px; height: 300px">
+                            <table class="table" style="width: 100px;">
+                                {% for row in data['chat'] %}
+                                {% if row['sendertype']=='customer' %}
+                                <tr>
+                                    <div style="color: green;" align="right">{{row['message']}}</div>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <div style="color: grey;" align="left">{{row['message']}}</div>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                            </table>
+                        </div>
+                        <table>
+                            <tr>
+                                <th><input type="text" name="message" required></th>
+                                <td><input type="submit" name="submit" value="SEND"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </center>
+            </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-                        <div class="welcome-speech">
-<center>
-	<form method="post">
-		<div style="overflow-y: scroll; width: 500px; height: 300px" >
-	<table class="table" style="width: 100px;">
-		{% for row in data['chat'] %}
-		
-			{% if row['sendertype']=='customer' %}
-			<tr>
-				<div style="color: green;" align="right" >{{row['message']}}</div>
-			
-			</tr>
-			{% else %}
-			<tr>
-			<div style="color:grey; "  align="left" >{{row['message']}}</div>
-			</tr>
-			{% endif %}
-		
-		{% endfor %}
-	</table>
-	</div>
-	<table>
-		<tr>
-			<th><input type="text" name="message" required></th>
-			<td><input type="submit" name="submit" value="SEND"></td>
-		</tr>
-	</table>
-	</form>
-</center>
+<!-- Add CSS styles -->
+<style>
+    /* Styling for chat messages */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table tr {
+        border: 1px solid #ddd;
+    }
+
+    .table td {
+        padding: 10px;
+    }
+
+    /* Styling for customer and agent messages */
+    .table tr.customer {
+        background-color: #eaf6e7;
+        text-align: right;
+    }
+
+    .table tr.agent {
+        background-color: #f2f2f2;
+        text-align: left;
+    }
+
+    /* Styling for input box and send button */
+    input[type="text"] {
+        width: 70%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    input[type="submit"] {
+        background-color: #2ecc71;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* Hover effect for the send button */
+    input[type="submit"]:hover {
+        background-color: #27ae60;
+    }
+
+
+    .button {
+    display: inline-block;
+    padding: 10px 20px; /* Adjust padding as needed for your design */
+    background-color: #0074D9; /* Blue background color for "Update" button */
+    color: white; /* Text color for the button */
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px; /* Adjust font size as needed */
+    border-radius: 4px; /* Rounded corners for the button */
+    cursor: pointer;
+    margin: 5px; /* Add margin for spacing */
+}
+
+.update-button {
+    background-color: #0074D9; /* Blue background color for "Update" button */
+}
+
+.delete-button {
+    background-color: #FF4136; /* Red background color for "Delete" button */
+}
+/* Inside your CSS file (e.g., style.css) */
+.container1 {
+    max-width: 800px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 20px; /* Add padding as needed for spacing */
+    background-color: #f2f2f2; /* Set a background color for the container */
+    border-radius: 5px; /* Add rounded corners to the container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a shadow for depth */
+    opacity: 0.7;
+}
+
+</style>
+
 {% include "footer.html" %}

@@ -38,7 +38,7 @@ def staff_view_assigned_job():
 @staff.route('/staff_view_feedback')
 def staff_view_feedback():
 	data={}
-	q="SELECT *,CONCAT(`first_name`,' ',`last_name`) AS customer_name FROM feedback INNER JOIN customer USING (customer_id) WHERE `staff_id`='%s'"%(session['staff_id'])
+	q="SELECT *,CONCAT(`first_name`,' ',`last_name`) AS customer_name FROM feedback INNER JOIN customer USING (customer_id)"
 	data['feedback']=select(q)
 
 	return render_template('staff_view_feedback.html',data=data)
@@ -94,3 +94,28 @@ def staff_interact_with_customer():
 		
 		return redirect(url_for('staff.staff_interact_with_customer',cid=cid))
 	return render_template('staff_interact_with_customer.html',data=data)
+
+@staff.route('/staff_view_customer_request')
+def staff_view_customer_request():
+	data={}
+	q="SELECT *,CONCAT(customer.first_name,' ',last_name) AS customer_name,CONCAT(staff.first_name,' ',lastname) AS staff_name FROM `assigned_event` INNER JOIN `requirments` USING (requirment_id) INNER JOIN staff USING(staff_id) INNER JOIN customer ON `assigned_event`.`customer_id`=`customer`.`customer_id` WHERE staff_id='%s'"%(session['staff_id'])
+	data['customer_requests']=select(q)
+
+	if 'action' in request.args:
+		action=request.args['action']
+		assigned_id=request.args['assigned_id']
+	else:
+		action=None
+	if action=='accept':
+		q="UPDATE `assigned_event` SET `status` = 'accepted' WHERE assigned_id='%s'"%(assigned_id)
+		update(q)
+		flash('Accepted...')
+		return redirect(url_for('staff.staff_view_customer_request',assigned_id=assigned_id))
+
+	if action=='reject':
+		q="UPDATE `assigned_event` SET `status` = 'rejected' WHERE assigned_id='%s'"%(assigned_id)
+		update(q)
+		flash('Accepted...')
+		return redirect(url_for('staff.staff_view_customer_request',assigned_id=assigned_id))
+
+	return render_template('staff_view_customer_request.html',data=data)

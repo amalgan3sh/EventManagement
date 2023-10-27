@@ -3,7 +3,7 @@ import mysql.connector
 password=""
 database = "platform_for_freelancers"
 def select(q):
-	cnx = mysql.connector.connect(user="root", password=password, host="localhost", database=database, port=3306)
+	cnx = mysql.connector.connect(user="root", password=password, host="localhost", database=database, port=3307)
 	cur = cnx.cursor(dictionary=True)
 	cur.execute(q)
 	result = cur.fetchall()
@@ -11,7 +11,7 @@ def select(q):
 	cnx.close()
 	return result
 def update(q):
-	cnx = mysql.connector.connect(user="root", password=password, host="localhost", database=database, port=3306)
+	cnx = mysql.connector.connect(user="root", password=password, host="localhost", database=database, port=3307)
 	cur = cnx.cursor(dictionary=True)
 	cur.execute(q)
 	cnx.commit()
@@ -21,7 +21,7 @@ def update(q):
 	return result
 
 def delete(q):
-	cnx = mysql.connector.connect(user="root", password=password, host="localhost", database=database, port=3306)
+	cnx = mysql.connector.connect(user="root", password=password, host="localhost", database=database, port=3307)
 	cur = cnx.cursor(dictionary=True)
 	cur.execute(q)
 	cnx.commit()
@@ -29,7 +29,7 @@ def delete(q):
 	cur.close()
 	cnx.close()
 def insert(q):
-	cnx = mysql.connector.connect(user="root", password=password, host="localhost", database=database, port=3306)
+	cnx = mysql.connector.connect(user="root", password=password, host="localhost", database=database, port=3307)
 	cur = cnx.cursor(dictionary=True)
 	cur.execute(q)
 	cnx.commit()

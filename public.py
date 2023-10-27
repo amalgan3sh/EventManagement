@@ -9,6 +9,18 @@ public=Blueprint('public',__name__)
 def main_home():
 	return render_template('main_home.html')
 
+@public.route('/change_password',methods=['get','post'])
+def change_password():
+	if 'submit' in request.form:
+		username=request.form['username']
+		newpassword=request.form['newpassword']
+		confirmpassword=request.form['confirmpassword']
+		q="UPDATE login SET `password` = '%s' WHERE username = '%s'"%(confirmpassword,username)
+		update(q)
+		flash('password reset success...')
+		return redirect(url_for('public.login'))
+	return render_template('change_password.html')
+
 
 @public.route('/login',methods=['get','post'])
 def login():

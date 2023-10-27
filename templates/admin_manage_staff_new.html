@@ -1,0 +1,84 @@
+{% include "admin_header.html" %}
+<div class="container1">
+                       
+            <!-- /#header -->
+<center>
+	<form method="post" enctype="multipart/form-data">
+		
+		<h1 style="color: brown"><b>Staff Registration</b></h1>
+        <div class="table-container">
+		<table class="table" style="width: 500px;">
+			<tr>
+				<th>First Name</th>
+				<td><input type="text" class="form-control" autocomplete="off" name="fname" pattern="[a-z/A-Z]{0,30}" required=""></td>
+			</tr>
+			<tr>
+				<th>Last Name</th>
+				<td><input type="text" name="lname"  autocomplete="off"  class="form-control" pattern="[a-z/A-Z]{0,30}" required=""></td>
+			</tr>
+			<tr>
+				<th>Phone</th>
+				<td><input type="text" autocomplete="off"  class="form-control"  name="phone" pattern="[0-9]{10}" required=""></td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td><input type="email" autocomplete="off"   class="form-control" name="email" required=""></td>
+			</tr>
+			<tr>
+				<th>House Name</th>
+				<td><input type="text"  autocomplete="off" class="form-control"  name="hname" pattern="[a-z/A-Z]{0,30}" required=""></td>
+			</tr>
+			<tr>
+				<th>Place</th>
+				<td><input type="text" autocomplete="off"  class="form-control"  name="place" pattern="[a-z/A-Z]{0,30}" required=""></td>
+			</tr>
+			<tr>
+				<th>Pincode</th>
+				<td><input type="text"  autocomplete="off"  class="form-control" name="pin" pattern="[0-9]{6}"></td>
+			</tr>
+			<tr>
+				<th>Photo</th>
+				<td><input type="file" autocomplete="off"  class="form-control"  name="image"></td>
+			</tr>
+			<!-- <tr>
+				<th>Username</th>
+				<td><input type="text" name="uname"></td>
+			</tr> -->
+			<tr>
+				<th>Password</th>
+				<td><input type="password" autocomplete="off"  class="form-control"  name="pwd" pattern="[a-zA-Z0-9]{8,20}" title="Atleast 8 Characters abcABC123..." required=""></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" name="submit" value="submit"></td>
+			</tr>
+		
+		</table>
+    </div>
+
+    <style type="text/css">
+        .table-container {
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+    padding: 20px; /* Adjust padding as needed */
+    border-radius: 10px; /* Rounded corners for the container */
+    width: 500px; /* Set the width of the container to match your table */
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+.table {
+    /* Your table styles here */
+}
+
+/* Additional styling for table header and cells if desired */
+.table th {
+    color: white;
+}
+
+.table td {
+    /* Cell styles here */
+}
+
+    </style>
+		
+	</form>
+</center>
+{% include "footer.html" %}

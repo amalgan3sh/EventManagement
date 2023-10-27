@@ -1,4 +1,5 @@
 {% include "admin_header.html" %}
+<div class="container1">
 <center>
 	<form method="post">
 		{% if data['updatess'] %}
@@ -6,11 +7,11 @@
 	<table class="table" style="width: 500px;">
 		<tr>
 			<th>Category Name</th>
-			<td><input type="text" name="cname" value="{{data['updatess'][0]['category_name']}}" pattern="[a-zA-Z\s]" readonly></td>
+			<td><input type="text" autocomplete="off" name="cname" value="{{data['updatess'][0]['category_name']}}" pattern="[a-zA-Z\s]" readonly></td>
 		</tr>
 		<tr>
 			<th>Category Description</th>
-			<td><input type="text" name="desc" value="{{data['updatess'][0]['category_description']}}" required readonly></td>
+			<td><input type="text" name="desc"  autocomplete="off" value="{{data['updatess'][0]['category_description']}}" required readonly></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center"><input type="submit" name="submits" value="submit"></td>
@@ -20,11 +21,11 @@
 	<table class="table" style="width: 500px;">
 		<tr>
 			<th>Category Name</th>
-			<td><input type="text" name="cname"  required></td>
+			<td><input type="text" autocomplete="off"  name="cname"  required></td>
 		</tr>
 		<tr>
 			<th>Category Description</th>
-			<td><input type="text" name="desc" required></td>
+			<td><input type="text" autocomplete="off"  name="desc" required></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center"><input type="submit" name="submit" value="submit"></td>
@@ -44,12 +45,49 @@
 			<td>{{loop.index}}</td>
 			<td>{{row['category_name']}}</td>
 			<td>{{row['category_description']}}</td>
-			<td><a style="color: magenta" href="?action=update&cid={{row['category_id']}}">Update</a></td>
-			<td><a style="color: magenta" href="?action=delete&cid={{row['category_id']}}">Delete</a></td>
+			<td><a class="button update-button" href="?action=update&cid={{row['category_id']}}">Update</a></td>
+			<td><a class="button delete-button" href="?action=delete&cid={{row['category_id']}}">Delete</a></td>
 		</tr>
 		{% endfor %}
 	</table>
 	</form>
 </center>
+</div>
+<style type="text/css">
+/* Inside your CSS file (e.g., style.css) */
+.button {
+    display: inline-block;
+    padding: 10px 20px; /* Adjust padding as needed for your design */
+    background-color: #0074D9; /* Blue background color for "Update" button */
+    color: white; /* Text color for the button */
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px; /* Adjust font size as needed */
+    border-radius: 4px; /* Rounded corners for the button */
+    cursor: pointer;
+    margin: 5px; /* Add margin for spacing */
+}
+
+.update-button {
+    background-color: #0074D9; /* Blue background color for "Update" button */
+}
+
+.delete-button {
+    background-color: #FF4136; /* Red background color for "Delete" button */
+}
+/* Inside your CSS file (e.g., style.css) */
+.container1 {
+    max-width: 800px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 20px; /* Add padding as needed for spacing */
+    background-color: #f2f2f2; /* Set a background color for the container */
+    border-radius: 5px; /* Add rounded corners to the container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a shadow for depth */
+    opacity: 0.7;
+}
+
+
+</style>
 
 {% include "footer.html" %}

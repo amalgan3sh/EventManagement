@@ -1,0 +1,80 @@
+{% include "staff_header.html" %}
+<div class="container1">
+<center>
+	<h1 style="color: brown;"><b>REQUESTS</b></h1>
+	<table class="table" style="width: 500px;">
+		<tr>
+			<th>Sl No</th>
+			<th>Customer Name</th>
+			<th>Venue</th>
+			<th>Date</th>
+			<th>Days required</th>
+			<th>Budget</th>
+			<th>Other requirments</th>
+			<th>Status</th>
+			<th></th>
+			<th></th>
+		</tr>
+
+
+		{% for row in data['customer_requests'] %}
+		<tr>
+			<td>{{loop.index}}</td>
+			<td>{{row['customer_name']}}</td>
+			<td>{{row['venue']}}</td>
+			<td>{{row['date']}}</td>
+			<td>{{row['days_required']}}</td>
+			<td>{{row['budget']}}</td>
+			<td>{{row['other']}}</td>
+			<td>{{row['status']}}</td>
+			</td>
+				<td><a class="button chat-button" href="staff_interact_with_customer?cid={{row['customer_id']}}">Chat</a></td>
+
+			<td><a  class="button update-button" href="?action=accept&assigned_id={{row['assigned_id']}}">Accept</td>
+			<td><a class="button delete-button" href="?action=reject&assigned_id={{row['assigned_id']}}">Reject</td>
+
+		</tr>
+		{% endfor %}
+	</table>
+</center>
+</div>
+
+
+<style type="text/css">
+/* Inside your CSS file (e.g., style.css) */
+.button {
+    display: inline-block;
+    padding: 10px 20px; /* Adjust padding as needed for your design */
+    background-color: #0074D9; /* Blue background color for "Update" button */
+    color: white; /* Text color for the button */
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px; /* Adjust font size as needed */
+    border-radius: 4px; /* Rounded corners for the button */
+    cursor: pointer;
+    margin: 5px; /* Add margin for spacing */
+}
+.chat-button {
+    background-color: magenta; /* Use the desired background color for the "Chat" button */
+    color: white; /* Text color for the button */
+}
+
+.update-button {
+    background-color: #0074D9; /* Blue background color for "Update" button */
+}
+
+.delete-button {
+    background-color: #FF4136; /* Red background color for "Delete" button */
+}
+/* Inside your CSS file (e.g., style.css) */
+.container1 {
+    max-width: 959px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 20px; /* Add padding as needed for spacing */
+    background-color: #f2f2f2; /* Set a background color for the container */
+    border-radius: 5px; /* Add rounded corners to the container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a shadow for depth */
+    opacity: 0.7;
+}
+{% include "footer.html" %}
